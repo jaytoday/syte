@@ -56,7 +56,7 @@ function setupLastfm(url, el) {
             
             lastfm_data.user_info.user.formatted_plays = numberWithCommas(lastfm_data.user_info.user.playcount);
             lastfm_data.user_info.user.formatted_playlists = numberWithCommas(lastfm_data.user_info.user.playlists);
-            lastfm_data.user_info.user.formatted_register_date = moment(lastfm_data.user_info.user.registered['#text'], 'YYYY-MM-DD HH:mm').format('MM/DD/YYYY');
+            lastfm_data.user_info.user.formatted_register_date = moment(lastfm_data.user_info.user.registered['#text']).format('MM/DD/YYYY');
             
             $.each(lastfm_data.recenttracks.recenttracks.track, function(i, t) {
                 // Lastfm can be really finicky with data and return garbage if
@@ -73,7 +73,9 @@ function setupLastfm(url, el) {
 
             $(template(lastfm_data)).modal().on('hidden', function () {
                 $(this).remove();
-                adjustSelection('home');
+                if (currSelection === 'lastfm') {
+                  adjustSelection('home');
+                }
             })
 
             spinner.stop();
